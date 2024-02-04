@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import { ThemeSwitcher } from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
@@ -9,6 +9,12 @@ import CustomModal from "../utils/CustomModal";
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
 import Verification from "../components/Auth/Verification";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import avatar from "../../public/assets/avatar.png"
+import { useSession } from "next-auth/react";
+import { useLogOutQuery, useSocialAuthMutation } from "../../redux/features/auth/authApi";
+import toast from "react-hot-toast";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -20,6 +26,32 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
+  const {user} = useSelector((state:any)=>state.auth );
+  const {data} = useSession();
+  const [socialAuth,{isSuccess,error}] = useSocialAuthMutation();
+  const [logout, setLogout] = useState(false);
+
+const {} =useLogOutQuery(undefined,{
+    skip: logout ? true: false,
+});
+  useEffect(() => {
+    if(!user){
+      if(data){
+        socialAuth({email:data?.user?.email,name:data?.user?.name,avatar: data?.user?.image})
+      };
+    }
+
+   if(data === null){
+     if(isSuccess){
+      toast.success("Login Successfully");
+    }}
+    if(data === null){
+      setLogout(true);
+    }
+    
+    
+  }, [data, isSuccess, socialAuth, user])
+  
 
   if (typeof window !== "undefined") {
     window.addEventListener("scroll", () => {
@@ -35,7 +67,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
       setOpenSidebar(false);
     }
   };
-
+  
   return (
     <div className="w-full relative">
       <div
@@ -66,11 +98,25 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
                   onClick={() => setOpenSidebar(true)}
                 />
               </div>
-              <HiOutlineUserCircle
-                size={25}
-                className="hidden 800px:block cursor-pointer dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              {
+                user ?
+                (
+                  <Link href={"/profile"} className="hidden 800px:block">
+                  <Image
+                    src={user.avatar ? user.avatar.url : avatar}
+                    alt="user-avatar"
+                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                    width={30}
+                    height={30}
+                   /></Link>
+                ):
+                (<HiOutlineUserCircle
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpen(true)}
+                />
+                )
+              }
             </div>
           </div>
         </div>
@@ -86,11 +132,24 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
                 Elearning{" "}
               </h1>
               <NavItems activeItem={activeItem} isMobile={true} />
-              <HiOutlineUserCircle
-                size={25}
-                className=" cursor-pointer ml-5 my-2 dark:text-white text-black"
-                onClick={() => setOpen(true)}
-              />
+              {
+                user ?
+                (
+                  <Link href={"/profile"} className="ml-5 ">
+                  <Image
+                    src={user.avatar ? user.avatar : avatar}
+                    alt="user-avatar"
+                    className="w-[30px] h-[30px] ml-5 rounded-full items-center cursor-pointer"
+                    
+                   /></Link>
+                ):
+                (<HiOutlineUserCircle
+                  size={25}
+                  className=" cursor-pointer dark:text-white ml-5 pl-5 text-black"
+                  onClick={() => setOpen(true)}
+                />
+                )
+              }
               <br />
               <br />
               <p className="text-[16px] px-2 pl-5 text-black dark:text-white">

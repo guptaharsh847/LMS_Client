@@ -1,7 +1,8 @@
 "use client";
+import { useLoginMutation } from "@/redux/features/auth/authApi";
 import { styles } from "../../../app/styles/styles";
 import { useFormik } from "formik";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   AiFillGithub,
   AiOutlineEye,
@@ -9,9 +10,12 @@ import {
 } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
 
 type Props = {
   setRoute: (route: string) => void;
+  setOpen: (open: boolean) => void;
 };
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -21,8 +25,9 @@ const schema = Yup.object().shape({
     .min(6, "Password must be at least 6 characters")
     .required("Please Enter your Password"),
 });
-const Login: FC<Props> = ({setRoute}) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
   const [show, setShow] = useState(false);
+  const [login, { isSuccess, error }] = useLoginMutation();
 
   const formik = useFormik({
     initialValues: {
@@ -31,9 +36,23 @@ const Login: FC<Props> = ({setRoute}) => {
     },
     validationSchema: schema,
     onSubmit: async ({ email, password }) => {
-      console.log(email, password);
+      await login({ email, password });
     },
   });
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Login SUccessfully");
+      setOpen(false);
+    }
+    if (error) {
+      if ("data" in error) {
+        const errorData = error as any;
+        toast.error(errorData.data.message);
+      } else {
+        toast.error("Something went wrong");
+      }
+    }
+  }, [isSuccess, error, setOpen]);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
@@ -78,37 +97,44 @@ const Login: FC<Props> = ({setRoute}) => {
             onClick={() => setShow(!show)}
             className="absolute top-[50%] right-[10px] text-[20px] cursor-pointer"
           >
-            {show ? <AiOutlineEyeInvisible className=" cursor-pointer ml-5 my-2 dark:text-white text-black" /> : <AiOutlineEye className=" cursor-pointer ml-5 my-2 dark:text-white text-black" />}
+            {show ? (
+              <AiOutlineEyeInvisible className=" cursor-pointer ml-5 my-2 dark:text-white text-black" />
+            ) : (
+              <AiOutlineEye className=" cursor-pointer ml-5 my-2 dark:text-white text-black" />
+            )}
           </span>
           {errors.password && touched.password && (
-          <p className="text-red-500 text-[12px]">{errors.password}</p>
-        )}
+            <p className="text-red-500 text-[12px]">{errors.password}</p>
+          )}
         </div>
         <div className="w-full mt-5">
-            <input
-              type="submit"
-              value="Login"
-              className={`${styles.button}`}
-            />
-             
+          <input type="submit" value="Login" className={`${styles.button}`} />
         </div>
         <br />
         <h5 className="text-[16px] font-Poppins text-black dark:text-white text-center pt-4">
-            Or join with
+          Or join with
         </h5>
         <div className="item-center justify-center flex my-3">
-            <AiFillGithub size={30} 
-            className="cursor-pointer dark:text-white text-black mr-2" />
-            <FcGoogle size={30} className="cursor-pointer dark:text-white text-black ml-2" />
+          <AiFillGithub
+            size={30}
+            className="cursor-pointer dark:text-white text-black mr-2"
+            onClick={() => signIn("github")}
+          />
+          <FcGoogle
+            size={30}
+            className="cursor-pointer dark:text-white text-black ml-2"
+            onClick={() => signIn("google")}
+          />
         </div>
-        <h5 className="text-[16px] font-Poppins text-black dark:text-white text-center pt-4">Dont have any account
-
-        <span
-          onClick={() => setRoute("Sign-Up")}
-          className={`text-[#2190ff] pl-1 cursor-pointer mt-5`}
-        >
-          Sign Up
-        </span></h5>
+        <h5 className="text-[16px] font-Poppins text-black dark:text-white text-center pt-4">
+          Dont have any account
+          <span
+            onClick={() => setRoute("Sign-Up")}
+            className={`text-[#2190ff] pl-1 cursor-pointer mt-5`}
+          >
+            Sign Up
+          </span>
+        </h5>
       </form>
       <br />
     </div>
