@@ -105,7 +105,7 @@ const {} =useLogOutQuery(undefined,{
                   <Image
                     src={user.avatar ? user.avatar.url : avatar}
                     alt="user-avatar"
-                    className="w-[30px] h-[30px] rounded-full cursor-pointer"
+                    className="w-[30px] h-[30px] border-[2px]  border-[#ddd540] rounded-full cursor-pointer"
                     width={30}
                     height={30}
                    /></Link>
