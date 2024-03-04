@@ -28,6 +28,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { redirect } from "next/navigation";
 
 interface itemProps {
   title: string;
@@ -146,12 +147,13 @@ const Sidebar = () => {
 
           {!isCollapsed && (
             <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
+              <Box display="flex"  justifyContent="center" alignItems="center">
                 <Image
                   alt="profile-user"
                   width={100}
                   height={90}
                   src={user.avatar ? user.avatar.url : avatarDefault}
+                  
                   className="cursor-pointer w-[120px] h-[120px] mt-2 border-[3px]  border-[#ddd540] rounded-full"
                   // style={{
                   //   cursor: "pointer",

@@ -1,3 +1,4 @@
+import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { styles } from "../../../app/styles/styles";
 import React, { FC, useState } from "react";
 
@@ -20,7 +21,7 @@ const CourseInformation: FC<Props> = ({
     e.preventDefault();
     setActive(active + 1);
   };
-
+  const { data } = useGetHeroDataQuery("Categories");
   const handleFileChange = (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -137,9 +138,9 @@ const CourseInformation: FC<Props> = ({
         </div>
 
         <br />
-
-        <div>
-          <label htmlFor="" className={`${styles.label}`}>
+        <div className="w-full flex justify-between">
+        <div className="w-[45%]">
+          <label htmlFor="" className={`${styles.label} `}>
             Course Tags
           </label>
           <input
@@ -156,6 +157,29 @@ const CourseInformation: FC<Props> = ({
           />
         </div>
 
+
+        <div className="w-[50%]">
+          <label htmlFor="" className={`${styles.label} `}>
+            Course Category
+          </label>
+         {/* category using map and making dropdown */}
+          <select
+            name=""
+            id=""
+            value={courseInfo.categories.title}
+            onChange={(e: any) =>
+              setCourseInfo({ ...courseInfo, categories: e.target.value })
+            }
+            className={`${styles.input} `}
+          >
+            {data?.layout?.categories.map((q: any) => (
+              <option value={q.title} key={q._id} className="hover:bg-slate-900 bg-slate-900 hover:dark:text-white dark:text-white text-black">
+                {q.title}
+              </option>
+            ))}
+          </select>
+        </div>
+            </div>
         <br />
 
         <div className="w-full flex justify-between">

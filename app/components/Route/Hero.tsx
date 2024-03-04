@@ -7,60 +7,73 @@ type Props = {};
 
 const Hero: FC<Props> = (props) => {
   return (
-    <>
-      <div>
-        <div className="w-[95%] m-auto flex justify-center items-center h-[70vh] 800px:h-[90vh] translate-y-0 opacity-100 transition-all duration-1000 ease-in-out">
-          <div className="w-[90%] 800px:w-[80%]">
-            <h1 className="font-extrabold text-[25px] leading-[35px] sm:text-3xl lg:text-5xl tracking-tight text-center dark:text-white text-[#0b1820] font-Poppins 800px:!leading-[60px]">
-              Unleash your inner 
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"> programming</span>
-              <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"> genius </span>
-              with our community.
-            </h1>
-            <div className="pt-2"></div>
-            <div className="w-full text-center">
-              <p className="800px:block hidden font-poppins 800px:text-[22px] 800px:leading-[32px] text-[16px] leading-[23px] font-normal dark:text-[#A3B3BC] text-[#0b1820] mt-5 mb-10">
-                Empower your programming journey with Becodemy <br /> dedicated
-                community and comprehensive resources.
-              </p>
-              <p className="800px:hidden block font-poppins 800px:text-[22px] 800px:leading-[32px] text-[16px] leading-[25px] font-normal dark:text-[#A3B3BC] text-[#0b1820] mt-5 mb-10">
-                Empower your programming journey with Becodemy dedicated
-                community and comprehensive resources.
-              </p>
-              <div className="flex w-full justify-center font-Poppins font-[600]">
-                <a href="/courses" >
-                  <div className="flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer bg-[#2190ff] min-h-[45px] w-full text-[16px] font-Poppins font-semibold">
-                    Explore Courses
-                  </div>
-                </a>
-              </div>
+    <div className="w-full 1000px:flex items-center">
+        {/* Below line in complete */}
+      <div className="absolute top-[100px] 1000px:top-[unset] 1500px:h-[700px] 1500px:w-[700px] 1100px:h-[600px] 1100px:w-[600px] h-[50v] w-[50v] hero_animation shake">
+        <div className="1000px:w-[40%] flex 1000px:min-h-screen items-center justify-end pt-[70px] 1000px:pt-[0] z-10">
+          <Image
+            src={require("../../../public/assets/banner-img-1.png")}
+            alt=""
+            className="object-contain 1100px:max-w-[90%] w-[90%] 1500px:max-w-[85%] h-[auto] z-[10]"
+          />
+        </div>
+        {/* Below line in complete */}
+        <div className="1000px:w-[60%] flex flex-col items-center 1000px:mt-[0px] text-center 1000px:text-left mt-[150px]">
+          <h2 className="dark:text-white text-[#000000c7] text-[30px] px-3 w-full 1000px:text-[70px] font-[600] font-Josefin py-2 100">
+            {" "}
+            Improve Your Online Learning Experience Better Instantly
+          </h2>
+          <br />
+          <p className="dark:text-[#edfff4] text-[#000000ac] font-Josefin font-[600] text-[18px] 1500px:!w-[55%] 1100px:!w-[78%]">
+            We have 40k+ Online courses & 500K+ Online registered student. Find
+            your desired Courses from them.
+          </p>
+          <br />
+          <br />
+          <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] h-[50px] bg-transparent relative">
+            <input
+              type="search"
+              placeholder="Search Courses..."
+              className="bg-transparent border dark:border-none dark:bg-[#575757] dark:placeholder:text-[#ffffffdd] rounded-[5px] p-2 w-full h-full outline-none text-[#0000004e] dark:text-[#ffffffe6] text-[20px] font-[500] font-Josefin"
+            />
+
+            <div className="absolute flex  w-[50px] cursor-pointer h-[50px] right-top-8bg-[#39c1f3] rounded-r-[5px]">
+              <BiSearch className="text-white" size={30} />
             </div>
           </div>
-        </div>
-        <div>
-          <div className="w-[90%] 800px:w-[80%] m-auto">
-            <h1 className="text-center font-Poppins text-[25px] leading-[35px] sm:text-3xl lg:text-4xl dark:text-white 800px:!leading-[60px] text-[#0b1820] font-extrabold tracking-tight">
-              Unlock Your Potential with{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Comprehensive</span> <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Project-Based</span> Courses for
-              Career Growth
-            </h1>
-            <br />
-            <br />
-            <br />
-            <br />
+          <br />
+          <br />
+          <div className="1500px:w-[55%] 1100px:w-[78%] w-[90%] flex items-center">
+            <Image
+              src={require("../../../public/assets/client-1.jpg")}
+              alt=""
+              className="rounded-full"
+            />
+            <Image
+              src={require("../../../public/assets/client-2.jpg")}
+              alt=""
+              className="rounded-full ml-[-20px]"
+            />
+            <Image
+              src={require("../../../public/assets/client-3.jpg")}
+              alt=""
+              className="rounded-full ml-[-20px]"
+            />
+            <p className="font-Josefin dark:text-[#edfff4] text-[#000000b3] 1000px:pl-3 text-[18px] font-[600]">
+              500K+ People already trusted us.{" "}
+              <Link
+                href="/courses"
+                className="dark:text-[#46e256] text-[crimson]"
+              >
+                View Courses
+              </Link>
+              {""}
+            </p>
           </div>
-        </div>
-        <div className="w-full">
-          <h1 className="text-[25px] dark:text-white text-[#0b1820] font-[500] font-Posppins text-center py-2 800px:!text-[45px]">
-            Lets see our students{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Reaction</span>
-          </h1>
           <br />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

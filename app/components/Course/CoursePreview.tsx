@@ -1,3 +1,4 @@
+
 import React, { FC } from "react";
 import CoursePlayer from "../../utils/CoursePlayer";
 import { styles } from "../../../app/styles/styles";
@@ -9,10 +10,12 @@ type Props = {
   setActive: (active: number) => void;
   courseData: any;
   handleCourseCreate: any;
+  
+  isEdit: boolean;
 };
 
 const CoursePreview: FC<Props> = (
-  { active, setActive, courseData, handleCourseCreate } //active, setActive, courseData, handleCourseCreate
+  { active, setActive, courseData, handleCourseCreate, isEdit } //active, setActive, courseData, handleCourseCreate
 ) => {
   const discountPercentage =
     ((courseData?.estimatedPrice - courseData?.price) /
@@ -26,6 +29,8 @@ const CoursePreview: FC<Props> = (
   const createCourse = () => {
     handleCourseCreate();
   };
+  
+  
 
   return (
     <div className="w-[90%] m-auto py-5 mb-5  dark:text-white text-black">
@@ -112,6 +117,10 @@ const CoursePreview: FC<Props> = (
         {/* {video id a172a5dfb6b7baae5d0e14a028130564} */}
         {/* course description */}
         <div className="w-full 800px:pr-5">
+        <h1 className="text-[25px] font-Poppins font-[600]">
+            Course Category
+          </h1>
+          <p className="text-[20px] font-Poppins">{courseData?.categories}</p> <br />
           <h1 className="text-[25px] font-Poppins font-[600]">
             Course Description
           </h1>
@@ -127,12 +136,18 @@ const CoursePreview: FC<Props> = (
         >
           Previous
         </div>
-        <div
-          className="w-full 800px:w-[180px] h-[40px] flex justify-center  text-[20px] bg-[#3bb6ac] text-center text-[#fff] rounded mt-8 cursor-pointer"
-          onClick={() => createCourse()}
-        >
-          Create Course
-        </div>
+       
+           <div className="w-full 800px:w-[180px] h-[40px] flex justify-center  text-[20px] bg-[#3bb6ac] text-center text-[#fff] rounded mt-8 cursor-pointer" 
+            onClick={() => createCourse()}>
+           {
+            isEdit ? "Update" :"Create"
+           } 
+          </div>
+          
+        
+       
+            
+       
       </div>
     </div>
   );
