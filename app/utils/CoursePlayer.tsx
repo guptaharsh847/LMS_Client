@@ -6,19 +6,22 @@ type Props = {
   title: string;
 };
 
-const CoursePlayer: FC<Props> = ({ videoUrl }) => {
+const CoursePlayer: FC<Props> = ({ videoUrl,title }) => {
   const [videoData, setVideoData] = useState({
     otp: "",
     playbackInfo: "",
   });
 
   useEffect(() => {
+    console.log(videoUrl);
     axios
       .post(`http://localhost:8000/api/v1/getVdoCipherOTP`, {
         videoId: videoUrl,
       })
       .then((res: any) => {
         setVideoData(res.data);
+        console.log(videoUrl);
+console.log(videoData.playbackInfo);
       });
   }, [videoUrl]);
 

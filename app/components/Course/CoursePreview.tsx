@@ -24,6 +24,8 @@ const CoursePreview: FC<Props> = (
   const discountPercentagePrice = discountPercentage.toFixed(0);
 
   const prevButton = () => {
+    
+   
     setActive(active - 1);
   };
   const createCourse = () => {
@@ -37,9 +39,10 @@ const CoursePreview: FC<Props> = (
       <div className="w-full relative">
         <div className="w-full mt-10">
           <CoursePlayer
-            videoUrl={courseData?.videoUrl}
+            videoUrl={courseData?.demoUrl}
             title={courseData?.title}
           />
+         { courseData?.title && console.log(courseData?.videoUrl)}
         </div>
         <div className="flex items-center">
           <h1 className="pt-5 text-[25px] ">
