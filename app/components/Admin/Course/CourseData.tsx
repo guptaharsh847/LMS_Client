@@ -1,5 +1,5 @@
 'use client'
-import { styles } from '../../../app/styles/styles';
+import { styles } from '../../../styles/styles';
 import { AddCircle } from '@mui/icons-material';
 import React, { FC } from 'react'
 import toast from 'react-hot-toast';

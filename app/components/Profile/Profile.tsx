@@ -6,6 +6,7 @@ import { useLogOutQuery } from '../../../redux/features/auth/authApi';
 import { signOut } from 'next-auth/react';
 import ProfileInfo from './ProfileInfo';
 import ChangePassword from './ChangePassword';
+import { redirect } from 'next/navigation';
 
 
 
@@ -21,7 +22,7 @@ const [avatar, setAvatar] = useState(null);
 const [logout, setLogout] = useState(false);
 
 const {} =useLogOutQuery(undefined,{
-    skip: logout ? true: false,
+    skip: !logout ? true: false,
 });
 const logoutHandler = async() => {
     setLogout(true);

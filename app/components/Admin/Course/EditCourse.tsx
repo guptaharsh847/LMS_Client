@@ -5,7 +5,7 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
-import { useCreateCourseMutation, useEditCourseMutation, useGetAllCoursesAdminQuery } from "../../../redux/features/courses/coursesApi";
+import { useCreateCourseMutation, useEditCourseMutation, useGetAllCoursesAdminQuery } from "../../../../redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 import { CgLaptop } from "react-icons/cg";
@@ -75,6 +75,7 @@ const EditCourse:FC<Props> = ({id}) => {
       title: "",
       description: "",
       videoUrl: "",
+      videoLength:"",
       videoSection: "",
       suggestion: "",
       links: [
@@ -100,6 +101,7 @@ const EditCourse:FC<Props> = ({id}) => {
       title: content.title,
       description: content.description,
       videoUrl: content.videoUrl,
+      videoLength: content.videoLength,
       videoSection: content.videoSection,
       suggestion: content.suggestion,
       links: content.links.map((link) => ({

@@ -23,7 +23,7 @@ const page = (props: Props) => {
         </div>
         <div className="w-[80%]">
             <DashboardHeader/>
-          <CourseAnalytics/>
+          {/* <CourseAnalytics/> */}
         </div>
       </div>
   

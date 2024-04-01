@@ -1,5 +1,5 @@
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
-import { styles } from "../../../app/styles/styles";
+import { styles } from "../../../styles/styles";
 import React, { FC, useState } from "react";
 
 type Props = {
@@ -99,7 +99,7 @@ const CourseInformation: FC<Props> = ({
         </div>
 
         <br />
-
+            
         <div className="w-full flex justify-between">
           <div className="w-[45%]">
             <label htmlFor="" className={`${styles.label}`}>

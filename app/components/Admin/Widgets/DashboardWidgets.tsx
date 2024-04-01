@@ -42,7 +42,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
     <div className="mt-[30px] min-h-screen">
       <div className="grid grid-cols-[75%,25%]">
         <div className="p-8">
-          <UserAnalytics isDashboard={true} />
+          {/* <UserAnalytics isDashboard={true} /> */}
         </div>
 
         <div className="pt-[80px] pr-8">
@@ -97,7 +97,7 @@ const DashboardWidgets: FC<Props> = ({ open }) => {
       </div>
       <div className="grid grid-cols-[65%,35%] mt-[-20px]">
         <div className="dark:bg-[#111C43] w-[94%] mt-[30px] h-[40vh] shadow-sm m-auto">
-          <OrderAnalytics isDashboard={true} />
+          {/* <OrderAnalytics isDashboard={true} /> */}
         </div>
 
         <div className="p-5">

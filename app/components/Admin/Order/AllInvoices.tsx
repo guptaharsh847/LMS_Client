@@ -85,6 +85,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
   ];
 
   const rows: any = [
+
     {
       id: 1,
       userName: "John Doe",
@@ -118,6 +119,8 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
       createdAt: "2 days ago",
     },
   ];
+  
+  // const rows: any=[  ];
   return (
     <div className={!isDashboard ? "mt-[120px]" : "mt-[0px]"}>
       {isLoading ? (

@@ -5,7 +5,7 @@ import CourseOptions from "./CourseOptions";
 import CourseData from "./CourseData";
 import CourseContent from "./CourseContent";
 import CoursePreview from "./CoursePreview";
-import { useCreateCourseMutation } from "../../../redux/features/courses/coursesApi";
+import { useCreateCourseMutation } from "../../../../redux/features/courses/coursesApi";
 import toast from "react-hot-toast";
 import { redirect } from "next/navigation";
 type Props = {};
@@ -43,6 +43,7 @@ const CreateCourse = (props: Props) => {
       title: "",
       description: "",
       videoUrl: "",
+      videoLength:"",
       videoSection: "Untitled Section",
       suggestion: "",
       links: [
@@ -69,6 +70,7 @@ const CreateCourse = (props: Props) => {
       description: content.description,
       videoUrl: content.videoUrl,
       videoSection: content.videoSection,
+      videoLength: content.videoLength,
       suggestion: content.suggestion,
       links: content.links.map((link) => ({
         title: link.title,

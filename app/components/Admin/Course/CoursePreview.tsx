@@ -1,8 +1,8 @@
 
 import React, { FC } from "react";
-import CoursePlayer from "../../utils/CoursePlayer";
-import { styles } from "../../../app/styles/styles";
-import Ratings from "../../../app/utils/Ratings";
+import CoursePlayer from "../../../utils/CoursePlayer";
+import { styles } from "../../../styles/styles";
+import Ratings from "../../../utils/Ratings";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 type Props = {

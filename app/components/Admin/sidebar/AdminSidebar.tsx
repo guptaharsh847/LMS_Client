@@ -64,6 +64,7 @@ const Sidebar = () => {
   }
   const logoutHandler = () => {
     setlogout(true);
+
   };
   return (
     <Box
@@ -321,7 +322,7 @@ const Sidebar = () => {
             />
             <Item
               title="Log Out"
-              to="/admin/logout"
+              to=""
               icon={<ExitToAppIcon />}
               selected={selected}
               setSelected={setSelected}

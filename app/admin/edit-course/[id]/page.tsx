@@ -2,7 +2,7 @@
 import AdminSidebar from '../../../components/Admin/sidebar/AdminSidebar'
 import React from 'react'
 import Heading from '../../../utils/Heading'
-import EditCourse from '../../../components/Course/EditCourse'
+import EditCourse from '../../../components/Admin/Course/EditCourse'
 import DashboardHeader from '../../../components/Admin/DashboardHeader'
 
 type Props = {}

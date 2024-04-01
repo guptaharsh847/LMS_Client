@@ -69,7 +69,8 @@ const SideBarProfile: FC<Props> = ({
         </Link>
       )}
      {
-      user.role ==="user" && (
+      // user.role ==="user" &&
+       (
         <div
         className={`w-full   flex items-center px-3 py-4 cursor-pointer  ${
           active === 3 ? "dark:bg-slate-800 bg-[#b6c1c9]" : "bg-transparent"

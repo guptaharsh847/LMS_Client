@@ -32,7 +32,7 @@ const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
   const [logout, setLogout] = useState(false);
 
 const {} =useLogOutQuery(undefined,{
-    skip: logout ? true: false,
+    skip: !logout ? true: false,
 });
   useEffect(() => {
     if(!user){

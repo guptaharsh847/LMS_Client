@@ -23,7 +23,7 @@ const page = (props: Props) => {
         </div>
         <div className="w-[80%]">
             <DashboardHeader/>
-          <UserAnalytics isDashboard={false}/>
+          {/* <UserAnalytics isDashboard={false}/> */}
         </div>
       </div>
   

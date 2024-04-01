@@ -23,7 +23,7 @@ const page = (props: Props) => {
         </div>
         <div className="w-[80%] bg-transparent">
             <DashboardHeader/>
-          <OrderAnalytics  isDashboard={false}/>
+          {/* <OrderAnalytics  isDashboard={false}/> */}
         </div>
       </div>
   
