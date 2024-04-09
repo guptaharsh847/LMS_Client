@@ -15,6 +15,7 @@ import avatar from "../../public/assets/avatar.png"
 import { useSession } from "next-auth/react";
 import { useLogOutQuery, useSocialAuthMutation } from "../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
+import { useLoadUserQuery } from "@/redux/features/api/apiSlice";
 type Props = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -26,7 +27,8 @@ type Props = {
 const Header: FC<Props> = ({ activeItem, setOpen, route, setRoute, open }) => {
   const [active, setActive] = useState(false);
   const [openSidebar, setOpenSidebar] = useState(false);
-  const {user} = useSelector((state:any)=>state.auth );
+  // const {user} = useSelector((state:any)=>state.auth );
+  const {data:userData,isLoading,refetch} = useLoadUserQuery(undefined,{});
   const {data} = useSession();
   const [socialAuth,{isSuccess,error}] = useSocialAuthMutation();
   const [logout, setLogout] = useState(false);
@@ -35,22 +37,25 @@ const {} =useLogOutQuery(undefined,{
     skip: !logout ? true: false,
 });
   useEffect(() => {
-    if(!user){
+   if(!isLoading){
+    if(!userData){
       if(data){
-        socialAuth({email:data?.user?.email,name:data?.user?.name,avatar: data?.user?.image})
+        socialAuth({email:data?.user?.email,name:data?.user?.name,avatar: data?.user?.image});
+        refetch();
       };
     }
+   }
 
    if(data === null){
      if(isSuccess){
       toast.success("Login Successfully");
     }}
-    if(data === null){
+    if(data === null && !isLoading && !userData){
       setLogout(true);
     }
     
     
-  }, [data, isSuccess, socialAuth, user])
+  }, [data, isSuccess, socialAuth, userData])
   
 
   if (typeof window !== "undefined") {
@@ -92,18 +97,38 @@ const {} =useLogOutQuery(undefined,{
               <ThemeSwitcher />
               {/* Only for mobilr */}
               <div className="800px:hidden">
+              {
+                userData ?
+                (
+                  <Link href={"/profile"} className="hidden 800px:block">
+                  <Image
+                    src={userData.avatar ? userData.avatar.url : avatar}
+                    alt="user-avatar"
+                    className="w-[30px] h-[30px] border-[2px]  border-[#ddd540] rounded-full cursor-pointer"
+                    width={30}
+                    height={30}
+                   /></Link>
+                ):
+                (<HiOutlineUserCircle
+                  size={25}
+                  className="hidden 800px:block cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpen(true)}
+                />
+                )
+              }
                 <HiOutlineMenuAlt3
                   size={25}
                   className="cursor-pointer dark:text-white text-black"
                   onClick={() => setOpenSidebar(true)}
                 />
+                
               </div>
               {
-                user ?
+                userData ?
                 (
                   <Link href={"/profile"} className="hidden 800px:block">
                   <Image
-                    src={user.avatar ? user.avatar.url : avatar}
+                    src={userData.avatar ? userData.avatar.url : avatar}
                     alt="user-avatar"
                     className="w-[30px] h-[30px] border-[2px]  border-[#ddd540] rounded-full cursor-pointer"
                     width={30}
@@ -119,9 +144,12 @@ const {} =useLogOutQuery(undefined,{
               }
             </div>
           </div>
+          
         </div>
         {/* Mobile sidebar */}
+        
         {openSidebar && (
+          
           <div
             id="screen"
             className="fixed top-0 left-0 w-full h-screen dark:bg-[unset] bg-[#00000024] z-[99999]"
@@ -133,19 +161,19 @@ const {} =useLogOutQuery(undefined,{
               </h1>
               <NavItems activeItem={activeItem} isMobile={true} />
               {
-                user ?
+                userData ?
                 (
                   <Link href={"/profile"} className="ml-5 ">
                   <Image
-                    src={user.avatar ? user.avatar : avatar}
+                    src={userData.avatar ? userData.avatar : avatar}
                     alt="user-avatar"
                     className="w-[30px] h-[30px] ml-5 rounded-full items-center cursor-pointer"
                     
                    /></Link>
                 ):
                 (<HiOutlineUserCircle
-                  size={25}
-                  className=" cursor-pointer dark:text-white ml-5 pl-5 text-black"
+                  size={50}
+                  className=" cursor-pointer dark:text-white ml-5 pl-5  text-black"
                   onClick={() => setOpen(true)}
                 />
                 )
@@ -181,6 +209,7 @@ const {} =useLogOutQuery(undefined,{
               setRoute={setRoute}
               activeItem={activeItem}
               component={Login}
+              refetch={refetch}
             />
           )}
         </>

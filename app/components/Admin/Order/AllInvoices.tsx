@@ -84,43 +84,7 @@ const AllInvoices: FC<Props> = ({ isDashboard }) => {
         ]),
   ];
 
-  const rows: any = [
-
-    {
-      id: 1,
-      userName: "John Doe",
-      title: "React Course",
-      price: "₹100",
-      userEmail: "XXXXXXXXXXXXXX",
-      createdAt: "2 days ago",
-    },
-    {
-      id: 6524565,
-      userName: "John Doe",
-      title: "React Course",
-      price: "₹100",
-      userEmail: "XXXXXXXXXXXXXX",
-      createdAt: "2 days ago",
-    },
-    {
-      id: 26456456,
-      userName: "John Doe2",
-      title: "React Course",
-      price: "₹100",
-      userEmail: "XXXXXXXXXXXXXX",
-      createdAt: "2 days ago",
-    },
-    {
-      id: 2546456546,
-      userName: "John Doe3",
-      title: "React Course",
-      price: "₹100",
-      userEmail: "XXXXXXXXXXXXXX",
-      createdAt: "2 days ago",
-    },
-  ];
-  
-  // const rows: any=[  ];
+  const rows: any = [];
   return (
     <div className={!isDashboard ? "mt-[120px]" : "mt-[0px]"}>
       {isLoading ? (

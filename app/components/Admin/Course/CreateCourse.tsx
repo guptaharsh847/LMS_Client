@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 type Props = {};
 
 const CreateCourse = (props: Props) => {
-  const [CreateCourse,{isLoading,isSuccess,error}] = useCreateCourseMutation();
+  const [createCourse,{isLoading,isSuccess,error}] = useCreateCourseMutation();
   useEffect(() => {
     if (isSuccess) {
      toast.success("Course created successfully");
@@ -99,7 +99,7 @@ const CreateCourse = (props: Props) => {
     const data =courseData;
     if(!isLoading){
      
-    await CreateCourse(data);}
+    await createCourse(data);}
 
   };
   return (

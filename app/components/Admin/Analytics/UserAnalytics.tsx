@@ -17,10 +17,8 @@ type Props = {
 };
 
 const UserAnalytics: FC<Props> = ({isDashboard}) => {
-  const { isLoading, data, refetch } = useGetUserAnalyticsQuery(
-    {},
-    { refetchOnMountOrArgChange: true }
-  );
+  const { isLoading, data,  } = useGetUserAnalyticsQuery(
+    {} );
   const analyticsData: any = [];
   {
     data &&

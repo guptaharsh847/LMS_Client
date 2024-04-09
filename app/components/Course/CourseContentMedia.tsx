@@ -1,5 +1,7 @@
 import { styles } from "@/app/styles/styles";
 import CoursePlayer from "@/app/utils/CoursePlayer";
+import avatar from "../../public/assets/avatar.png"
+
 import Ratings from "@/app/utils/Ratings";
 import {
   useAddAnswerInQuestionMutation,
@@ -20,6 +22,11 @@ import {
 import { BiMessage } from "react-icons/bi";
 import { VscVerifiedFilled } from "react-icons/vsc";
 import { format } from "timeago.js";
+import socketIO from "socket.io-client";
+const ENDPOINT =process.env.NEXT_PUBLIC_SOCKET_SERVER_URI || "";
+const socketId= socketIO(ENDPOINT,{transports:["websocket"]});
+
+
 
 type Props = {
   data: any;
@@ -101,19 +108,32 @@ const CourseContentMedia = ({
     if (isSuccess) {
       setQuestion("");
       refetch();
-
       toast.success("Question added successfully");
+      socketId.emit("notification",{title: "New Question Recieved",
+      message:`You have a new question from ${data[activeVideo].title}`,
+      userId: user._id,
+      });
     }
     if (successAnswer) {
       setAnswer("");
       refetch();
       toast.success("Reply added successfully");
+      if(user.role !== "admin"){
+        socketId.emit("notification",{title: "New Reply Recieved",
+      message:`You have a new question Reply in  ${data[activeVideo].title}`,
+      userId: user._id,
+      });
+      }
     }
     if (reviewSuccess) {
       setReview("");
       setRating(0);
       courseRefetch();
       toast.success("Review added successfully");
+      socketId.emit("notification",{title: "New Review Recieved",
+      message:`You have a new review from ${data[activeVideo].title}`,
+      userId: user._id,
+      });
     }
 
     if (error) {
@@ -190,7 +210,6 @@ const CourseContentMedia = ({
       if (reply.length === 0) {
         toast.error("Reply cannot be empty");
       } else {
-        
         // console.log(reply);
         // console.log(reviewId);
         // console.log(id);
@@ -283,7 +302,11 @@ const CourseContentMedia = ({
         <>
           <div className="flex w-full mt-2">
             <Image
-              src={user.avatar ? user.avatar.url : "/LMS_Client/public/assets/avatar.png"}
+              src={
+                user?.avatar
+                  ? user?.avatar.url
+                  : avatar
+              }
               alt="avatar"
               width={50}
               height={50}
@@ -424,7 +447,7 @@ const CourseContentMedia = ({
                         </small>
                       </div>
                     </div>
-                    {user.role === "admin" && (
+                    {user.role === "admin" && item.commentReplies.length === 0 && (
                       <span
                         className={`${styles.label} !ml-10  cursor-pointer dark:text-white text-black`}
                         onClick={() => {
@@ -434,7 +457,7 @@ const CourseContentMedia = ({
                         Add Reply
                       </span>
                     )}
-                    {isReviewReply && (
+                    {isReviewReply && reviewId === item._id &&(
                       <div className="w-full flex relative">
                         <input
                           type="text"
@@ -455,33 +478,35 @@ const CourseContentMedia = ({
                         </button>
                       </div>
                     )}
-                    {(item?.commentReplies && [...item?.commentReplies])
-          ?.reverse().map((item: any, index: number) => (
+                    {item?.commentReplies.map((item: any, index: number) => (
                       <div className="w-full flex 800px:ml-16 my-5 ">
                         <div className="w-[50px] h-[50px]">
-                         
-                            <Image
-                              src={
-                                item?.user.avatar
-                                  ? item?.user.avatar.url
-                                  : "/LMS_Client/public/assets/avatar.png"
-                              }
-                              alt="avatar"
-                              width={50}
-                              height={50}
-                              className="rounded-full w-[50px] h-[50px] object-cover"
-                            />
-                          </div>
-                          <div className="pl-2  text-black dark:text-white">
+                          <Image
+                            src={
+                              item?.user.avatar
+                                ? item?.user.avatar.url
+                                : avatar
+                            }
+                            alt="avatar"
+                            width={50}
+                            height={50}
+                            className="rounded-full w-[50px] h-[50px] object-cover"
+                          />
+                        </div>
+                        <div className="pl-2  text-black dark:text-white">
+                          <div className="flex items-center">
                             <h5 className="text-[20px] text-black dark:text-white">
                               {item?.user.name}
                             </h5>
-                            <p>{item.comment}</p>
-                            <small className="text-[#ffffff83]">
-                              {format(item?.createdAt)}•
-                            </small>
+                            {item.user.role === "admin" && (
+                              <VscVerifiedFilled className="text-[#4ff774] ml-2 text-[20px]" />
+                            )}
                           </div>
-                        
+                          <p>{item.comment}</p>
+                          <small className="text-[#ffffff83]">
+                            {format(item?.createdAt)}•
+                          </small>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -584,7 +609,7 @@ const CommentItem = ({
             {item.questionReplies.length}
           </span>
         </div>
-        {replyActive && (
+        {replyActive &&  (
           <>
             {item.questionReplies.map((item: any, index: number) => (
               <div className="my-5 w-full flex 800px:ml-16 text-black dark:text-white">

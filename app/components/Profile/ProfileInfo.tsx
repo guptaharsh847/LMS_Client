@@ -96,12 +96,12 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
       <div className="w-full mt-[6%] pl-[15%] absolute 800px:pl-10 pt-[100px]">
         <form onSubmit={handleSubmit}>
           <div className="800px:w-[50%] m-auto block pb-4">
-            <div className="w-[100%]">
+            <div className="w-[100%]  ">
               <label className={`${styles.label} block pb-2`}>Full Name</label>
 
               <input
                 type="text"
-                className={`${styles.input} w-[40%] mb-4 800px:mb-0 800px:w-[70%]`}
+                className={`${styles.input} !w-[75%] mb-4 800px:w-[90%] 800px:mb-0`}
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -112,7 +112,7 @@ const ProfileInfo: FC<Props> = ({ avatar, user }) => {
               <input
                 type="text"
                 readOnly
-                className={`${styles.input} w-[40%] mb-1 800px:mb-0 800px:w-[70%]`}
+                className={`${styles.input} !w-[75%] mb-4 800px:w-[90%] 800px:mb-0`}
                 required
                 value={user?.email}
               />
