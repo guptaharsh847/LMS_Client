@@ -8,7 +8,7 @@ import Footer from "../components/Footer"
 
 type Props={}
 
-const page = (props:Props) =>{
+const Page = (props:Props) =>{
     const [route, setRoute] = useState("Login")
     const [open,setOpen]=useState(false)
     
@@ -34,4 +34,4 @@ const page = (props:Props) =>{
         </div>
     )
 }
-export default page
+export default Page

@@ -7,7 +7,7 @@ import DashboardHeader from '../../../app/components/Admin/DashboardHeader'
 
 type Props = {}
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
   return (
     <div>
     
@@ -30,4 +30,4 @@ const page = (props: Props) => {
   )
 }
 
-export default page
+export default Page

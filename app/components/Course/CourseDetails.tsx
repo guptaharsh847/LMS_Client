@@ -1,6 +1,6 @@
 import Ratings from "@/app/utils/Ratings";
 import React, { FC, useEffect, useState } from "react";
-import avatar from "../../public/assets/avatar.png"
+import avatar from "../../../public/assets/avatar.png"
 
 import {
   IoCheckmarkCircleSharp,

@@ -11,7 +11,7 @@ import { styles } from "@/app/styles/styles";
 import toast from "react-hot-toast";
 
 type Props = {
-  isTeam: boolean;
+  isTeam?: boolean;
 };
 
 const AllUsers: FC<Props> = ({ isTeam }) => {

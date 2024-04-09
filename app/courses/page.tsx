@@ -11,9 +11,9 @@ import CourseCard from "../components/Course/CourseCard";
 import Footer from "../components/Footer";
 type Props = {};
 
-const page = (props: Props) => {
-  const searchParams = useSearchParams();
-  const search = searchParams?.get("title");
+const Page = (props: Props) => {
+  // const searchParams = useSearchParams();
+  // const search = searchParams?.get("title");
   const { data, isLoading } = useGetAllCoursesQuery(undefined, {});
   const { data: categoriesData } = useGetHeroDataQuery("Categories", {});
   const [route, setRoute] = useState("Login");
@@ -30,14 +30,14 @@ const page = (props: Props) => {
       );
     }
 
-    if (search) {
-      setCourses(
-        data?.courses.filter((item: any) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        )
-      );
-    }
-  }, [data, category, search]);
+    // if (search) {
+    //   setCourses(
+    //     data?.courses.filter((item: any) =>
+    //       item.name.toLowerCase().includes(search.toLowerCase())
+    //     )
+    //   );
+    // }
+  }, [data, category, ]);
 
   const categories = categoriesData?.layout.categories;
 
@@ -90,9 +90,9 @@ const page = (props: Props) => {
               <p
                 className={`${styles.label} justify-center min-h-[50vh] flex items-center text-black dark:text-white`}
               >
-                {search
+                {/* {search
                   ? "No courses found"
-                  : "No courses available in this category. Please try another one!"}
+                  : "No courses available in this category. Please try another one!"} */}
               </p>
             )}
             <br />
@@ -110,4 +110,4 @@ const page = (props: Props) => {
     </div>
   );
 };
-export default page;
+export default Page;

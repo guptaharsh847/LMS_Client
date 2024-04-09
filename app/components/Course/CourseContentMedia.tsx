@@ -1,6 +1,7 @@
 import { styles } from "@/app/styles/styles";
 import CoursePlayer from "@/app/utils/CoursePlayer";
-import avatar from "../../public/assets/avatar.png"
+import avatar from "../../../public/assets/avatar.png"
+
 
 import Ratings from "@/app/utils/Ratings";
 import {

@@ -10,7 +10,7 @@ import Footer from "../components/Footer";
 
 type Props = {};
 
-const page: FC<Props> = (props) => {
+const Page: FC<Props> = (props) => {
 const [open, setOpen] = useState(false);
 const [activeItem, setActiveItem] = useState(0);
 const [route, setRoute] = useState("Login");
@@ -40,4 +40,4 @@ route={route}
 </div>
 );
 };
-export default page;
+export default Page;
